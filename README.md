@@ -6,7 +6,7 @@ An automated computer vision pipeline for detecting and segmenting decorative mo
 
 ## Background
 
-Vietnamese stone steles present a significant challenge for standard object detection methods. The imagery in this pipeline originates from graphite rubbings of carved stone, transferred to paper, and digitally scanned — producing high-contrast monochromatic images that are visually unlike the natural photographic scenes that most pretrained detectors were trained on. The use of a large vision-language model (VLM) for detection, rather than a conventional object detector, allows the pipeline to leverage semantic and cultural understanding of the motifs rather than purely low-level visual features.
+Vietnamese stone steles present a significant challenge for standard object detection methods. The imagery in this pipeline originates from graphite rubbings of carved stone, transferred to paper, and digitally scanned. These scans exist as high-contrast monochromatic images that are visually unlike the natural photographic scenes that most pretrained detectors were trained on. The use of a large vision-language model (VLM) for detection, rather than a conventional object detector, allows the pipeline to leverage semantic and cultural understanding of the motifs rather than purely low-level visual features.
 
 The pipeline processes images in the following stages:
 
