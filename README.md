@@ -17,7 +17,6 @@ The pipeline processes images in the following stages:
 5. Verified bounding boxes are passed to SAM2 for pixel-precise segmentation masks
 6. Results are exported as a visualized overlay, individual mask PNGs, and a JSON file
 
-Optionally, a reference image library of confirmed motif crops can be built up over time and used for few-shot visual prompting, significantly improving detection quality on subsequent runs.
 
 ---
 
@@ -79,7 +78,7 @@ This downloads several checkpoint sizes. The pipeline uses `sam2.1_hiera_large.p
 
 ```
 your_project/
-├── stele_motif_pipeline_v3.py     ← main pipeline script
+├── stele_motif_pipeline.py     ← main pipeline script
 ├── reference_library.py           ← reference crop management (imported by pipeline)
 ├── test_connection.py             ← optional diagnostic script
 ├── checkpoints/
@@ -91,10 +90,6 @@ your_project/
 ├── test_images/                   ← place your input images here
 │   ├── stele_inverted.tif         ← color-inverted B&W image (used for detection)
 │   └── stele_original.jpg         ← original colored image (used for visualization)
-├── reference_crops/               ← created after first run via reference_library.py
-│   └── dragon/
-│       ├── ref_001.jpg
-│       └── ref_002.jpg
 └── output/                        ← created automatically on first run
     ├── detection_overlay.png
     ├── detections.json
@@ -102,13 +97,13 @@ your_project/
     └── mask_000_dragon.png
 ```
 
-`stele_motif_pipeline_v3.py` and `reference_library.py` must be in the same directory, as the pipeline imports directly from the reference library module.
+`stele_motif_pipeline.py` and `reference_library.py` must be in the same directory, as the pipeline imports directly from the reference library module.
 
 ---
 
 ## Configuration
 
-Open `stele_motif_pipeline_v3.py` and edit the CONFIG section near the top of the file:
+Open `stele_motif_pipeline.py` and edit the CONFIG section near the top of the file:
 
 ```python
 # ── Paths ─────────────────────────────────────────────────────────────────────
@@ -170,13 +165,13 @@ If this fails, ensure the server is started inside LM Studio and that the model 
 
 ```bash
 # Detect a single motif type
-python stele_motif_pipeline_v3.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon
+python stele_motif_pipeline.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon
 
 # Detect multiple motif types in a single pass
-python stele_motif_pipeline_v3.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon lotus cloud
+python stele_motif_pipeline.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon lotus cloud
 
 # Skip the verification pass for faster (but less precise) results
-python stele_motif_pipeline_v3.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon --skip-verify
+python stele_motif_pipeline.py --image test_images/stele_inverted.tif --original test_images/stele_original.jpg --motifs dragon --skip-verify
 ```
 
 ### 3. Review outputs
@@ -192,37 +187,6 @@ In the overlay and JSON, detections with a SAM2 score below 0.60 are flagged wit
 
 ---
 
-## Reference Library (Few-Shot Visual Prompting)
-
-On first run the pipeline operates using text descriptions of motifs alone. After one or more successful runs, you can build a reference library of confirmed motif crops that the VLM will use as visual examples in subsequent runs. This typically improves detection quality and reduces false positives.
-
-### Build the library from a completed run
-
-```bash
-python reference_library.py extract \
-    --source-image test_images/stele_inverted.tif \
-    --detections output/detections.json \
-    --min-sam2 0.75
-```
-
-This reads `detections.json`, extracts crops for all detections with a SAM2 score ≥ 0.75, and saves them into `reference_crops/<label>/`. Only high-confidence detections are used to avoid propagating errors into the reference set.
-
-### Inspect the library
-
-```bash
-python reference_library.py list
-```
-
-### Add crops manually
-
-You can also add reference crops by hand — useful if you have existing annotated examples or want to include crops from external sources. Place any JPEG or PNG into `reference_crops/<label>/` and the pipeline will pick them up automatically on the next run.
-
-### How it works in practice
-
-When the reference library contains images for a given label, each tile call to the VLM will include those images before the detection tile with the instruction: *"These are confirmed examples of [label] motifs as they appear in Vietnamese stone stele graphite rubbings — use these as visual reference."* The VLM then uses them as anchors when searching the tile, significantly reducing the domain gap between what the model knows from training and the unusual visual style of stele imagery.
-
----
-
 ## Supported Motif Types
 
 The following motif types are supported out of the box with culturally-informed visual descriptions:
@@ -235,7 +199,7 @@ The following motif types are supported out of the box with culturally-informed 
 | `phoenix` | phụng | Bird figure with elaborate tail plumes, often paired with a dragon |
 | `inscription` | văn bản | Dense panel of Chinese or Vietnamese characters in vertical columns |
 
-To add a new motif type, add an entry to the `MOTIF_DESCRIPTIONS` dictionary in `stele_motif_pipeline_v3.py`:
+To add a new motif type, add an entry to the `MOTIF_DESCRIPTIONS` dictionary in `stele_motif_pipeline.py`:
 
 ```python
 MOTIF_DESCRIPTIONS["tortoise"] = (
