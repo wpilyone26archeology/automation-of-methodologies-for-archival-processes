@@ -79,7 +79,6 @@ This downloads several checkpoint sizes. The pipeline uses `sam2.1_hiera_large.p
 ```
 your_project/
 ├── stele_motif_pipeline.py     ← main pipeline script
-├── reference_library.py           ← reference crop management (imported by pipeline)
 ├── test_connection.py             ← optional diagnostic script
 ├── checkpoints/
 │   └── sam2.1_hiera_large.pt
