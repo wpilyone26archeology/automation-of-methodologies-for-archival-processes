@@ -1,6 +1,6 @@
 # Vietnamese Stele Motif Detection & Segmentation Pipeline
 
-An automated computer vision pipeline for detecting and segmenting decorative motifs from digitized graphite rubbings of Vietnamese stone steles (bia đá). The pipeline combines a locally-hosted vision-language model (Qwen3-VL-8B) with Meta's SAM2 segmentation model to identify and precisely outline carved motifs such as dragons, lotus flowers, cloud scrolls, and phoenixes.
+An automated computer vision pipeline for detecting and segmenting decorative motifs from digitized graphite rubbings of Vietnamese stone steles. The pipeline combines a locally-hosted vision-language model (Qwen3-VL-8B) with Meta's SAM2 segmentation model to identify and precisely outline carved motifs such as dragons, lotus flowers, cloud scrolls, and phoenixes.
 
 ---
 
