@@ -2,6 +2,7 @@
 
 This project contains four documented pipelines for archaeological data organization and management that aim to assist in the implementation of artificial intelligence to assist experts in these processes. Each of the four pipelines come with fully documented procedures and results that were produced by implementing these processes on the L’Art à Hué artbook and a dataset of seventeenth century Vietnamese steles.
 
+```
 automation-of-methodologies-for-archival-processes/
 ├── authority-file/
 │   ├── authorityFile.txt
@@ -19,6 +20,7 @@ automation-of-methodologies-for-archival-processes/
 ├── README
 ├── stelemotifpipeline2.py
 └── test_connection.py
+```
 
 ---
 
