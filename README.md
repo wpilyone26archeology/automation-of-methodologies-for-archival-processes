@@ -1,3 +1,91 @@
+# Automation of Methodologies for Archival Processing
+
+This project contains four documented pipelines for archaeological data organization and management that aim to assist in the implementation of artificial intelligence to assist experts in these processes. Each of the four pipelines come with fully documented procedures and results that were produced by implementing these processes on the L’Art à Hué artbook and a dataset of seventeenth century Vietnamese steles.
+
+automation-of-methodologies-for-archival-processes/
+├── authority-file/
+│   ├── authorityFile.txt
+│   ├── "Entity List.xlsx"
+│   ├── method-for-creating-an-authority-file-database.pdf
+│   └── Neo4j-access-codes.txt
+├── document-preservation/
+│   ├── "Dublin Core.xmp"
+│   ├── method-for-appending-metadata-to-files-for-document-preservation.pdf
+│   ├── "L'Art à Hue.xmp"
+│   └── RenameToDCIdentifier.jsx
+├── text-analysis-ocr/
+│   └── method-for-performing-multilingual-ocr-and-transcribing-textual-documents.pdf
+├── ai-pipeline-for-image-recognition-and-classification.pdf
+├── README
+├── stelemotifpipeline2.py
+└── test_connection.py
+
+---
+
+## Document Preservation
+
+"Method for Appending Metadata to Files for Document Preservation"
+(method-for-appending-metadata-to-files-for-document-preservation.pdf)
+
+### Purpose
+
+The purpose of this process is to append metadata to image files so that they contain all
+necessary information to enable automatic classification, simplified data organization, and future document reconstruction. The metadata follows the Dublin Core standard and the files should be saved in a lossless compression TIFF file format, as recommended by the Library of Congress (Dublin Core Metadata Initiative (DCMI), n.d.; Library of Congress, n.d.-b).
+
+### Requirements
+
+- Adobe Photoshop
+- Adobe Bridge
+- Excel
+- Metadata Deluxe toolkit
+
+### Files
+
+- “Dublin Core.xmp” - blank XMP template for uploading metadata to image files in with the fifteen elements of the Dublin Core standard.
+- “Rename to DC Identifier (Fixed)” Custom script - renames outputted files to the specified Dublin Core identifier
+
+---
+
+## Textual Analysis
+
+"Method for Performing Multilingual OCR and Transcribing Textual Documents"
+(method-for-performing-multilingual-ocr-and-transcribing-textual-documents.pdf)
+
+### Purpose
+
+The purpose of the textual analysis pipeline is to transcribe physical documents into a machine readable format. The outlined pipeline is compatible for multilingual uses as well.
+
+### Requirements
+
+- ScanTailor
+- Access to LLM with OCR capabilities
+
+### Files
+
+Appendix C: LLM Prompts Used for OCR
+
+---
+
+## Authority File
+
+"Method for Creating an Authority File Database"
+(method-for-creating-an-authority-file-database)
+
+### Purpose
+
+The purpose of this process is to create a reference framework (authority file) that contains
+entities and relationships between them. This framework should be in the form of a graphical
+database and should contain necessary translations and alternate terminology for all entities.
+
+
+### Requirements
+
+- Text editor
+- Spreadsheet software
+- Neo4j
+
+---
+
 # Vietnamese Stele Motif Detection & Segmentation Pipeline
 
 An automated computer vision pipeline for detecting and segmenting decorative motifs from digitized graphite rubbings of Vietnamese stone steles. The pipeline combines a locally-hosted vision-language model (Qwen3-VL-8B) with Meta's SAM2 segmentation model to identify and precisely outline carved motifs such as dragons, lotus flowers, cloud scrolls, and phoenixes.
